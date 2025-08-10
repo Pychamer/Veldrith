@@ -2,6 +2,17 @@
 
 localforage.setItem('e', 'e');
 
+// inject version badge
+(function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    if (document.querySelector('.version-badge')) return;
+    const badge = document.createElement('div');
+    badge.className = 'version-badge';
+    badge.textContent = 'V.1.0';
+    document.body.appendChild(badge);
+  });
+})();
+
 // fancy animation
 function setupObserver(selector) {
 	const observer = new MutationObserver(function (mutationsList) {
@@ -154,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script async src="https://widget.changelogfy.com/index.js"></script>
 </body>
 		</html>
-	  `;
+		  `;
 
 				const blob = new Blob([htmlContent], {
 					type: 'text/html'
@@ -167,41 +178,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					newWindow.onload = () => {
 						newWindow.document.title = 'Space';
 					};
-
-					const tabCloak = localStorage.getItem(
-						'dropdown-selected-text-tabCloak'
-					);
-
-					switch (tabCloak) {
-						case 'None (Default)':
-							window.location.href = 'https://google.com';
-							break;
-						case 'Google Classroom':
-							window.location.href =
-								'https://classroom.google.com';
-							break;
-						case 'Schoology':
-							window.location.href =
-								'https://app.schoology.com/home';
-							break;
-						case 'Desmos':
-							window.location.href =
-								'https://www.desmos.com/calculator';
-							break;
-						case 'Google Drive':
-							window.location.href = 'https://drive.google.com';
-							break;
-						case 'Kahn Academy':
-							window.location.href =
-								'https://www.khanacademy.org/';
-							break;
-						case 'Quizlet':
-							window.location.href = 'https://quizlet.com/';
-							break;
-						default:
-							window.location.href = 'https://google.com';
-							break;
-					}
 				}
 			}
 		} else if (launchType === 'aboutBlank') {
@@ -538,12 +514,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						document.getElementById('text-2').textContent =
 							'Something went wrong. Please try again.';
 					} else {
-						document.getElementById('text-1').textContent =
-							'Password is wrong';
-						document.getElementById('text-2').textContent =
-							'Incorrect password. Please try again.';
-						incorrectPassword();
-					}
+					document.getElementById('text-1').textContent =
+						'Password is wrong';
+					document.getElementById('text-2').textContent =
+						'Incorrect password. Please try again.';
+					incorrectPassword();
+				}
 				}
 			});
 
