@@ -140,10 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					document.querySelector('.searchEngineIcon').style.display =
 						'none';
 					document.querySelector(
-						'.gointospaceSearchButton'
+						'.gotoveldrithSearchButton'
 					).style.cssText =
 						'transform: translate(-11px, 3px); user-select: none; cursor: default;';
-					document.getElementById('formintospace').style.transform =
+					document.getElementById('formtoveldrith').style.transform =
 						'translateY(150px)';
 
 					if (shortcut.style) {
@@ -194,10 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					shortcutImage.style.padding = '0';
 					shortcutImage.style.transition = '0.2s';
 
-					document.getElementById('gointospace').style.cssText =
+					document.getElementById('gotoveldrith').style.cssText =
 						'width: 500px; text-align: left; padding: 15px; margin-right: -0.5rem; padding-left: 49.5px;';
 					document.querySelector(
-						'.gointospaceSearchButton'
+						'.gotoveldrithSearchButton'
 					).style.cssText =
 						'transform: translate(-34px, 3px); user-select: none; cursor: default;';
 

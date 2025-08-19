@@ -289,13 +289,14 @@ body img {
 
 .sparkles {
 	stroke-width: 1.5px;
-	color: #fff;
+	color: #4a7c59;
 	transform: rotate(340deg);
-	width: 24px;
-	height: 24px;
+	width: 28px;
+	height: 28px;
 	position: absolute;
-	right: 0.5em;
-	top: 0.5em;
+	right: 1em;
+	top: 0.8em;
+	z-index: 1000;
 }
 
 .sparkles:hover {
@@ -673,8 +674,8 @@ span.material-symbols-outlined {
 	text-align: center;
 }
 
-.search-header__input:not(#gointospace2):hover,
-.search-header__input:not(#gointospace2):focus {
+.search-header__input:not(#gotoveldrith2):hover,
+.search-header__input:not(#gotoveldrith2):focus {
 	box-shadow:
 		10px 5px 40px -10px var(--dshadow1),
 		-14px -4px 40px -10px var(--dshadow2);
