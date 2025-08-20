@@ -35,17 +35,35 @@ var wispUrl = localStorage.getItem('wisp') || defWisp;
 async function setTransports() {
 	const transports =
 		localStorage.getItem('dropdown-selected-text-transport') || 'Libcurl';
-	if (transports === 'Libcurl') {
-		await connection.setTransport('/libcurl/index.mjs', [
-			{ wisp: wispUrl }
-		]);
-	} else if (transports === 'Epoxy') {
-		await connection.setTransport('/epoxy/index.mjs', [{ wisp: wispUrl }]);
-	} else {
-		await connection.setTransport('/libcurl/index.mjs', [
-			{ wisp: wispUrl }
-		]);
-	}
+	
+	// Enhanced transport configuration for gaming sites
+	const transportConfig = {
+		Libcurl: {
+			path: '/libcurl/index.mjs',
+			options: [
+				{ wisp: wispUrl },
+				// Add additional options for better gaming support
+				{ 
+					timeout: 30000,
+					keepAlive: true,
+					userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+				}
+			]
+		},
+		Epoxy: {
+			path: '/epoxy/index.mjs',
+			options: [
+				{ wisp: wispUrl },
+				{ 
+					timeout: 30000,
+					keepAlive: true
+				}
+			]
+		}
+	};
+
+	const config = transportConfig[transports] || transportConfig.Libcurl;
+	await connection.setTransport(config.path, config.options);
 }
 
 function search(input) {

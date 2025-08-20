@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veldrith Gaming Test</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/themes.css" />
+    <style>
+        .gaming-test {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: var(--background-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .test-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .test-button:hover {
+            background: var(--accent-hover-color);
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: var(--success-color);
+            color: white;
+        }
+        .error {
+            background: var(--error-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="gaming-test">
+        <h1>🎮 Veldrith Gaming Proxy Test</h1>
+        <p>Test the proxy with popular gaming sites:</p>
+        
+        <div class="test-buttons">
+            <a href="/&?url=https://now.gg" class="test-button">Test now.gg</a>
+            <a href="/&?url=https://www.roblox.com" class="test-button">Test Roblox</a>
+            <a href="/&?url=https://web.roblox.com" class="test-button">Test Roblox Web</a>
+        </div>
+        
+        <div class="status" id="status">
+            Click a test button above to verify proxy functionality
+        </div>
+        
+        <h3>What was fixed:</h3>
+        <ul>
+            <li>✅ Corrected bare server path from /bare/ to /baremux/</li>
+            <li>✅ Enhanced CORS configuration for gaming sites</li>
+            <li>✅ Added gaming-specific bypass patterns</li>
+            <li>✅ Improved transport configuration for better gaming support</li>
+            <li>✅ Added security headers for gaming compatibility</li>
+        </ul>
+        
+        <h3>How to use:</h3>
+        <ol>
+            <li>Click one of the test buttons above</li>
+            <li>The proxy should load the gaming site</li>
+            <li>If you see the site load, the proxy is working!</li>
+            <li>If you get an error, check the console for details</li>
+        </ol>
+        
+        <p><strong>Note:</strong> Some gaming sites may still have additional protections that could block proxy access. The fixes implemented should resolve the most common issues.</p>
+    </div>
+
+    <script>
+        // Check if gaming config is loaded
+        window.addEventListener('load', function() {
+            if (window.gamingConfig) {
+                document.getElementById('status').innerHTML = '✅ Gaming configuration loaded successfully!';
+            } else {
+                document.getElementById('status').innerHTML = '⚠️ Gaming configuration not loaded. Check console for errors.';
+                document.getElementById('status').className = 'status error';
+            }
+        });
+    </script>
+</body>
+</html>

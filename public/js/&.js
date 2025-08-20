@@ -1,7 +1,25 @@
 // & is the name of the proxy page, so &.js is the js for the proxy page minus the actual proxy code, because thats long enough to cause readability issues
 
+// Load gaming configuration
+let gamingConfigLoaded = false;
+async function loadGamingConfig() {
+	if (!gamingConfigLoaded) {
+		const script = document.createElement('script');
+		script.src = '/js/gaming-config.js';
+		document.head.appendChild(script);
+		await new Promise(resolve => script.onload = resolve);
+		gamingConfigLoaded = true;
+	}
+}
+
 let encodedUrl = '';
 async function executeSearch(query) {
+	// Load gaming config if needed
+	await loadGamingConfig();
+	
+	// Check if this is a gaming site
+	const isGaming = window.gamingConfig && window.gamingConfig.isGamingSite(query);
+	
 	encodedUrl = swConfigSettings.prefix + __uv$config.encodeUrl(search(query));
 	localStorage.setItem('input', query);
 	localStorage.setItem('output', encodedUrl);
@@ -9,6 +27,14 @@ async function executeSearch(query) {
 	document.querySelectorAll('.spinner')[0].style.display = 'block';
 	document.getElementById('gotoveldrith').style.display = 'none';
 	const iframe = document.getElementById('intoveldrith');
+	
+	// Apply gaming-specific settings
+	if (isGaming) {
+		console.log('Gaming site detected, applying optimized settings');
+		// Set optimal transport for gaming
+		localStorage.setItem('dropdown-selected-text-transport', 'Libcurl');
+	}
+	
 	await registerSW();
 	iframe.src = encodedUrl;
 	await registerSW().then(async () => {

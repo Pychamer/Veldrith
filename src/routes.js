@@ -229,6 +229,30 @@ router.get('/password', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public/password.html'));
 });
 
+router.get('/gaming-test', (req, res) => {
+	res.sendFile(path.join(__dirname, 'public/gaming-test.html'));
+});
+
+// Special handling for gaming sites and WebSocket upgrades
+router.use('/gaming/*', (req, res, next) => {
+	// Set specific headers for gaming sites
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+	next();
+});
+
+// Proxy bypass for specific gaming domains
+router.get('/bypass/*', (req, res) => {
+	const targetUrl = req.params[0];
+	if (targetUrl.includes('now.gg') || targetUrl.includes('roblox.com')) {
+		// Handle gaming site bypass
+		res.redirect(`/@/space/${encodeURIComponent(targetUrl)}`);
+	} else {
+		res.status(404).sendFile(path.join(__dirname, 'public/err.html'));
+	}
+});
+
 router.use((req, res, next) => {
 	res.status(404).sendFile(path.join(__dirname, 'public/err.html'));
 });
