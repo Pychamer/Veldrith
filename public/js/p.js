@@ -1,5 +1,5 @@
-const address1 = document.getElementById('gointospace');
-const address2 = document.getElementById('gointospace2');
+const address1 = document.getElementById('gotoveldrith');
+const address2 = document.getElementById('gotoveldrith2');
 const urlPattern = new RegExp(
 	'^(https?:\\/\\/)?' +
 		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +

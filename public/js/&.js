@@ -7,8 +7,8 @@ async function executeSearch(query) {
 	localStorage.setItem('output', encodedUrl);
 	document.querySelectorAll('.spinnerParent')[0].style.display = 'block';
 	document.querySelectorAll('.spinner')[0].style.display = 'block';
-	document.getElementById('gointospace').style.display = 'none';
-	const iframe = document.getElementById('intospace');
+	document.getElementById('gotoveldrith').style.display = 'none';
+	const iframe = document.getElementById('intoveldrith');
 	await registerSW();
 	iframe.src = encodedUrl;
 	await registerSW().then(async () => {
@@ -60,7 +60,7 @@ function saveHistory() {
 }
 
 function startURLMonitoring() {
-	const iframe = document.getElementById('intospace');
+	const iframe = document.getElementById('intoveldrith');
 	let lastUrl = iframe.contentWindow.location.href;
 
 	const checkIframeURL = () => {
@@ -82,7 +82,7 @@ function startURLMonitoring() {
 				erudaScriptInjecting = false;
 				console.log('Iframe navigation detected, Eruda toggle reset.');
 
-				updateGointospace2(currentUrl);
+				updateGotoveldrith2(currentUrl);
 				updateButtonStates();
 			}
 		} catch (e) {
@@ -93,7 +93,7 @@ function startURLMonitoring() {
 	setInterval(checkIframeURL, 250);
 }
 
-function updateGointospace2(url) {
+function updateGotoveldrith2(url) {
 	document.querySelectorAll('.search-header__icon')[0].style.display = 'none';
 
 	let cleanedUrl = __uv$config.decodeUrl(
@@ -130,7 +130,7 @@ address2.addEventListener('click', function () {
 	if (
 		!currentValue.startsWith('http://') &&
 		!currentValue.startsWith('https://') &&
-		intospace.src &&
+		intoveldrith.src &&
 		currentValue != 'Internal Server Error! Did you load a broken link?' &&
 		currentValue != 'Loading...'
 	) {
@@ -212,7 +212,7 @@ backButton.addEventListener('click', function () {
 		iframe.src = historyArray[currentIndex];
 		iframe.style.display = 'block';
 		setTimeout(() => {
-			document.getElementById('gointospace2').style.paddingLeft = '40px';
+			document.getElementById('gotoveldrith2').style.paddingLeft = '40px';
 		}, 250);
 		updateButtonStates();
 		saveHistory();
@@ -225,7 +225,7 @@ forwardButton.addEventListener('click', function () {
 		iframe.src = historyArray[currentIndex];
 		iframe.style.display = 'block';
 		setTimeout(() => {
-			document.getElementById('gointospace2').style.paddingLeft = '40px';
+			document.getElementById('gotoveldrith2').style.paddingLeft = '40px';
 		}, 250);
 		updateButtonStates();
 		saveHistory();
@@ -334,15 +334,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			})
 			.catch(error => console.error('Error fetching json:', error));
 		document.querySelector('.utilityBar').style.display = 'none';
-		document.getElementById('intospace').style.height = '100vh';
-		document.getElementById('intospace').style.top = '0';
+		document.getElementById('intoveldrith').style.height = '100vh';
+		document.getElementById('intoveldrith').style.top = '0';
 	} else {
 		if (localStorage.getItem('utilBarHidden') === 'true') {
 			document.querySelector('.utilityBar').style.display = 'none';
-			document.getElementById('intospace').style.height = '100%';
+			document.getElementById('intoveldrith').style.height = '100%';
 		} else {
 			document.querySelector('.utilityBar').style.display = 'block';
-			document.getElementById('intospace').style.height =
+			document.getElementById('intoveldrith').style.height =
 				'calc(100% - 3.633em)';
 		}
 
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-const iframe = document.getElementById('intospace');
+const iframe = document.getElementById('intoveldrith');
 const observer = new MutationObserver(function (mutationsList) {
 	mutationsList.forEach(function (mutation) {
 		if (
@@ -396,7 +396,7 @@ const observer = new MutationObserver(function (mutationsList) {
 				'load',
 				function () {
 					const initialUrl = iframe.contentWindow.location.href;
-					updateGointospace2(initialUrl);
+					updateGotoveldrith2(initialUrl);
 					startURLMonitoring();
 				},
 				{ once: true }
@@ -481,7 +481,7 @@ function injectHideScript(iframeDocument) {
 }
 
 function inspectelement() {
-	const iframe = document.getElementById('intospace');
+	const iframe = document.getElementById('intoveldrith');
 	if (!iframe || !iframe.contentWindow) {
 		console.error(
 			"Iframe not found or inaccessible. \\(°□°)/ (This shouldn't happen btw)"
