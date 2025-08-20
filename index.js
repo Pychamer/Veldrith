@@ -16,14 +16,32 @@ const app = express();
 const __dirname = process.cwd();
 const PORT = process.env.PORT || 6060;
 
-app.use(cors());
+// Enhanced CORS configuration for gaming sites
+app.use(cors({
+	origin: true,
+	credentials: true,
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'User-Agent', 'Referer', 'Sec-Fetch-Dest', 'Sec-Fetch-Mode', 'Sec-Fetch-Site', 'Sec-Fetch-User']
+}));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Proxy static files
 app.use('/epoxy/', express.static(epoxyPath));
 app.use('/@/', express.static(uvPath));
 app.use('/libcurl/', express.static(libcurlPath));
 app.use('/baremux/', express.static(baremuxPath));
+
+// Add security headers for gaming sites
+app.use((req, res, next) => {
+	res.setHeader('X-Content-Type-Options', 'nosniff');
+	res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+	res.setHeader('X-XSS-Protection', '1; mode=block');
+	res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
+	next();
+});
 
 app.use('/', routes);
 
